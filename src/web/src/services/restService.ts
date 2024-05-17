@@ -16,7 +16,10 @@ export abstract class RestService<T extends Entity> {
 
     public constructor(baseUrl: string, baseRoute: string) {
         this.client = axios.create({
-            baseURL: `${baseUrl}${baseRoute}`
+            baseURL: `${baseUrl}${baseRoute}`,
+            params: {
+                'api-version': '1.0'
+            }
         });
     }
 
@@ -64,7 +67,10 @@ export abstract class RestService<T extends Entity> {
         const response = await this.client.request<T>({
             method: 'PUT',
             url: entity.id,
-            data: entity
+            data: entity,
+            params: {
+                'api-version': 'beta'
+            }
         });
 
         return response.data;
